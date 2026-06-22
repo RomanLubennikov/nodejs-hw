@@ -18,20 +18,16 @@ dotenv.config();
 
 const app = express();
 
-app.use(logger);
 app.use(cors());
-app.use(cookieParser());
 app.use(express.json());
-
+app.use(cookieParser());
+app.use(logger);
 app.use(authRouter);
+app.use(userRouter);
 app.use(notesRouter);
-app.use('/users', userRouter);
-
-app.use(errors());
-
 app.use(notFoundHandler);
+app.use(errors());
 app.use(errorHandler);
-
 const PORT = process.env.PORT || 3000;
 
 await connectMongoDB();
